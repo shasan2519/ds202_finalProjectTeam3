@@ -1,0 +1,24 @@
+---
+title: "proposal"
+author: "ds202_finalProjectTeam3 github.com/shasan2519/ds202_finalProjectTeam3"
+date: "4/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Team Meber: Syed Hasan, Connor Carpenter, Orion Hunter
+## Link: https://github.com/fivethirtyeight/data/blob/master/soccer-spi/README.md
+
+# Summary of the link:
+  - This file contains links to the data behind our Club Soccer Predictions and Global Club Soccer Rankings.
+
+spi_matches.csv contains match-by-match SPI ratings and forecasts back to 2016.
+
+spi_global_rankings.csv contains current SPI ratings and rankings for men's club teams.
+
+spi_global_rankings_intl.csv contains current SPI ratings and rankings for men's international teams.
+  
+# Question we are planning to answer:
+  - 
