@@ -1,0 +1,54 @@
+---
+title: "DS 202 Final Project"
+author: "Connor Carpenter"
+date: "4/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+soccer <- read.csv("spi_matches.csv")
+```
+
+```{r}
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+
+soccer$date <- ymd(soccer$date)
+```
+
+```{r}
+library(tidyr)
+library(plotly)
+
+soccerTest <- soccer %>% filter(league == "Barclays Premier League")
+
+id <- rownames(soccerTest)
+soccerTest <- cbind(id=id, soccerTest)
+
+names(soccerTest)[1] <- "match_id"
+
+help <- unique(soccerTest %>% pivot_longer(team1:team2, names_to = "HoA", values_to = "team"))
+
+help$HoA[help$HoA == "team1"] <- "home"
+help$HoA[help$HoA == "team2"] <- "away"
+
+help$spi <- help$spi2
+
+help$spi[help$HoA == "home"] <- help$spi1[help$HoA == "home"]
+
+p <- help %>% filter(date > as.Date("2019-06-01"), date < as.Date("2020-03-13")) %>% ggplot(aes(x = date, y = spi, color = team)) + geom_point() + geom_line(aes(group = team)) + labs(title = "SPI by Team in the 19-20 Premier League")
+
+ggplotly(p)
+```
+
+```{r}
+soccer$date <- format(soccer$date,"%Y-%m")
+soccer %>% group_by(league, date) %>% summarize(spi = mean(spi1)) %>% ggplot(aes(x = date, y = spi, color = league)) + geom_point() + geom_line(aes(group = league)) + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+#ggplotly(p2)
+```
+
